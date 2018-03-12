@@ -29,7 +29,6 @@ export default class App extends React.Component {
   render() {
     return (
       <TouchableWithoutFeedback
-        style={styles.bg_green}
         onPress={Keyboard.dismiss}
         accessible={false}>
         <View style={[styles.app_container, this.state.backgroundColor]}>

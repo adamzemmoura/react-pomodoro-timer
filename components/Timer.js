@@ -36,13 +36,18 @@ export default class Timer extends Component {
     timer_label = this.state.is_work_interval ? "WORK TIMER" : "BREAK TIMER"
     timer_current = this.state.countdown_current
     start_stop_button_title = this.state.timer_running ? "Stop Timer" : "Start Timer"
-    enable_reset_button = false
+    enable_reset_button = this.state.timer_running
+    reset_button_text_color = 'blue'
 
-    if (this.is_work_interval) {
-      enable_reset_button = this.state.timer_running || (this.state.countdown_current < this.props.work_interval)
-    } else {
-      enable_reset_button = this.state.timer_running || (this.state.countdown_current < this.props.break_interval)
+    if (this.state.is_work_interval) {
+      enable_reset_button = (this.state.countdown_current < this.props.work_interval)
+      reset_button_text_color = 'white'
     }
+    else {
+      enable_reset_button = true
+      reset_button_text_color = 'white'
+    }
+
     return (
 
       <View style={{alignItems: 'center'}}>
@@ -67,7 +72,7 @@ export default class Timer extends Component {
 
         <Button
           disabled={!enable_reset_button}
-          color="blue"
+          color={reset_button_text_color}
           title="Reset"
           onPress={ this.resetTimer }>
         </Button>
@@ -83,10 +88,11 @@ export default class Timer extends Component {
   }
 
   setTextColor(color) {
+    default_color = 'black'
     if (color === 'white') {
       this.setState({text_color: color})
     } else {
-      this.setState({text_color: 'black'})
+      this.setState({text_color: default_color})
     }
   }
 
@@ -95,17 +101,14 @@ export default class Timer extends Component {
     this.setState({
       countdown_current: this.props.work_interval,
       is_work_interval: true,
+      timer_running: false,
+      timer_stopped: true,
+      timer_label: "WORK TIMER",
     })
 
     if (this.state.timer_running) {
       clearInterval(this.interval)
     }
-
-    this.setState({
-      timer_running: false,
-      timer_stopped: true,
-      timer_label: "WORK TIMER",
-    })
 
     this.props.changeBackgroundColor('white')
     this.setTextColor('black')
@@ -150,7 +153,7 @@ export default class Timer extends Component {
   }
 
   alertUserTimerDidEnd = () => {
-    alert_title = this.state.is_work_interval ? 'Time for a break!' : 'Let\'s get back to work!'
+    alert_title = this.state.is_work_interval ? 'Time for a break! 🎉' : 'Let\'s get back to work! 💪🧠'
     button_title = this.state.is_work_interval ? 'Start Break' : 'Start Work'
     next_interval = this.state.is_work_interval ? this.props.break_interval : this.props.work_interval
 
@@ -174,20 +177,8 @@ export default class Timer extends Component {
 }
 
 const styles = StyleSheet.create({
-  bg_green: {
-    backgroundColor: 'green',
-  },
-  bg_red: {
-    backgroundColor: 'red',
-  },
   bg_blue: {
     backgroundColor: 'blue',
-  },
-  white: {
-    color: 'white',
-  },
-  blue: {
-    color: 'blue',
   },
   button_wrapper: {
     marginTop: 10,
@@ -195,8 +186,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     height: 50,
     width: 150,
-  },
-  timer_label: {
-    fontSize: 50,
   },
 });
