@@ -6,7 +6,6 @@ const IntervalSelector = (props) => {
   return (
     <View style={{ flexDirection: 'row', }}>
 
-      // column 1
       <View style={{
           justifyContent: 'space-around',
           alignItems: 'flex-end',
@@ -16,9 +15,8 @@ const IntervalSelector = (props) => {
         <Text style={styles.main_label}>Break Interval :</Text>
       </View>
 
-      // column 2
       <View style={{flex: 1}}>
-        // row 1
+
         <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
 
           <TextInput
@@ -40,7 +38,7 @@ const IntervalSelector = (props) => {
 
           <Text> secs</Text>
         </View>
-        // row 2
+        
         <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
 
           <TextInput

@@ -153,7 +153,7 @@ export default class Timer extends Component {
   }
 
   alertUserTimerDidEnd = () => {
-    alert_title = this.state.is_work_interval ? 'Time for a break! 🎉' : 'Let\'s get back to work! 💪🧠'
+    alert_title = this.state.is_work_interval ? 'Time for a break! 🎉' : 'Let\'s get back to work! 💪'
     button_title = this.state.is_work_interval ? 'Start Break' : 'Start Work'
     next_interval = this.state.is_work_interval ? this.props.break_interval : this.props.work_interval
 
